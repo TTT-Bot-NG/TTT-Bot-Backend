@@ -1,0 +1,10 @@
+# Rider template
+bin/
+obj/
+/packages/
+riderModule.iml
+/_ReSharper.Caches/
+# IDEs
+.idea/
+.vs/
+.vscode/
