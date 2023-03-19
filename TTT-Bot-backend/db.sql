@@ -802,6 +802,30 @@ CREATE TABLE IF NOT EXISTS `TTT-Bot`.`MarriageJoinRequest_Has_User_Has_Marriage`
     ENGINE = InnoDB;
 
 
+-- -----------------------------------------------------
+-- Table `TTT-Bot`.`User_Has_Pokemon_Fight_Request`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `TTT-Bot`.`User_Has_Pokemon_Fight_Request` (
+                                                                          `User_Has_Pokemon_Id` INT NOT NULL,
+                                                                          `Challenged_User_Has_Pokemon_Id` INT NOT NULL,
+                                                                          `IsAccepted` TINYINT NULL,
+                                                                          `ChallengerIsWinner` TINYINT NULL,
+                                                                          PRIMARY KEY (`User_Has_Pokemon_Id`, `Challenged_User_Has_Pokemon_Id`),
+                                                                          INDEX `fk_User_Has_Pokemon_has_User_Has_Pokemon_User_Has_Pokemon2_idx` (`Challenged_User_Has_Pokemon_Id` ASC) VISIBLE,
+                                                                          INDEX `fk_User_Has_Pokemon_has_User_Has_Pokemon_User_Has_Pokemon1_idx` (`User_Has_Pokemon_Id` ASC) VISIBLE,
+                                                                          CONSTRAINT `fk_User_Has_Pokemon_has_User_Has_Pokemon_User_Has_Pokemon1`
+                                                                              FOREIGN KEY (`User_Has_Pokemon_Id`)
+                                                                                  REFERENCES `TTT-Bot`.`User_Has_Pokemon` (`Id`)
+                                                                                  ON DELETE NO ACTION
+                                                                                  ON UPDATE NO ACTION,
+                                                                          CONSTRAINT `fk_User_Has_Pokemon_has_User_Has_Pokemon_User_Has_Pokemon2`
+                                                                              FOREIGN KEY (`Challenged_User_Has_Pokemon_Id`)
+                                                                                  REFERENCES `TTT-Bot`.`User_Has_Pokemon` (`Id`)
+                                                                                  ON DELETE NO ACTION
+                                                                                  ON UPDATE NO ACTION)
+    ENGINE = InnoDB;
+
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

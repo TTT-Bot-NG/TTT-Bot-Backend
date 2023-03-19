@@ -96,6 +96,8 @@ public partial class MyDbContext : DbContext
 
     public virtual DbSet<UserHasPokemon> UserHasPokemons { get; set; }
 
+    public virtual DbSet<UserHasPokemonFightRequest> UserHasPokemonFightRequests { get; set; }
+
     public virtual DbSet<UserMarriageProposal> UserMarriageProposals { get; set; }
 
     public virtual DbSet<Xpboost> Xpboosts { get; set; }
@@ -742,6 +744,22 @@ public partial class MyDbContext : DbContext
             entity.HasIndex(e => e.UserId, "fk_User_has_Pokemon_User1_idx");
 
             entity.Property(e => e.Id).ValueGeneratedOnAdd();
+        });
+
+        modelBuilder.Entity<UserHasPokemonFightRequest>(entity =>
+        {
+            entity.HasKey(e => new { e.UserHasPokemonId, e.ChallengedUserHasPokemonId })
+                .HasName("PRIMARY")
+                .HasAnnotation("MySql:IndexPrefixLength", new[] { 0, 0 });
+
+            entity.ToTable("user_has_pokemon_fight_request");
+
+            entity.HasIndex(e => e.UserHasPokemonId, "fk_User_Has_Pokemon_has_User_Has_Pokemon_User_Has_Pokemon1_idx");
+
+            entity.HasIndex(e => e.ChallengedUserHasPokemonId, "fk_User_Has_Pokemon_has_User_Has_Pokemon_User_Has_Pokemon2_idx");
+
+            entity.Property(e => e.UserHasPokemonId).HasColumnName("User_Has_Pokemon_Id");
+            entity.Property(e => e.ChallengedUserHasPokemonId).HasColumnName("Challenged_User_Has_Pokemon_Id");
         });
 
         modelBuilder.Entity<UserMarriageProposal>(entity =>
